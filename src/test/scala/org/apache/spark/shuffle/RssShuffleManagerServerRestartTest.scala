@@ -66,7 +66,7 @@ class RssShuffleManagerServerRestartTest {
     val shuffleHandle = sc.env.shuffleManager.registerShuffle(shuffleId, shuffleDependency)
 
     val mapOutputTrackerMaster = SparkEnv.get.mapOutputTracker.asInstanceOf[MapOutputTrackerMaster]
-    mapOutputTrackerMaster.registerShuffle(shuffleId, numMaps)
+    mapOutputTrackerMaster.registerShuffle(shuffleId, numMaps, numPartitions)
 
     // restart rss server
     rssTestCluster.restartShuffleServers()
@@ -160,8 +160,8 @@ class RssShuffleManagerServerRestartTest {
     val shuffleHandle2 = driverShuffleManager.registerShuffle(shuffleId2, shuffleDependency)
 
     val mapOutputTrackerMaster = SparkEnv.get.mapOutputTracker.asInstanceOf[MapOutputTrackerMaster]
-    mapOutputTrackerMaster.registerShuffle(shuffleId1, numMaps1)
-    mapOutputTrackerMaster.registerShuffle(shuffleId2, numMaps2)
+    mapOutputTrackerMaster.registerShuffle(shuffleId1, numMaps1, numPartitions)
+    mapOutputTrackerMaster.registerShuffle(shuffleId2, numMaps2, numPartitions)
 
     // Spark creates different ShuffleManager instances in driver and executor, thus we create
     // another instance to simulate the situation inside executor
@@ -281,8 +281,8 @@ class RssShuffleManagerServerRestartTest {
     val shuffleHandle2 = driverShuffleManager.registerShuffle(shuffleId2, shuffleDependency)
 
     val mapOutputTrackerMaster = SparkEnv.get.mapOutputTracker.asInstanceOf[MapOutputTrackerMaster]
-    mapOutputTrackerMaster.registerShuffle(shuffleId1, numMaps1)
-    mapOutputTrackerMaster.registerShuffle(shuffleId2, numMaps2)
+    mapOutputTrackerMaster.registerShuffle(shuffleId1, numMaps1, numPartitions)
+    mapOutputTrackerMaster.registerShuffle(shuffleId2, numMaps2, numPartitions)
 
     // Spark creates different ShuffleManager instances in driver and executor, thus we create
     // another instance to simulate the situation inside executor

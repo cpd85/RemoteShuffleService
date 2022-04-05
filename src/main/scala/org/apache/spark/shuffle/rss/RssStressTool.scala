@@ -67,6 +67,8 @@ class RssStressTool extends Logging {
   var numServers = 4
   // Number of total map tasks
   var numMaps = 10
+  // Number of total reduce tasks
+  var numReduces = 10
   // Number of total partitions
   var numPartitions = 7
   // Number of splits for shuffle file
@@ -141,7 +143,7 @@ class RssStressTool extends Logging {
     sparkContext = new SparkContext(sparkConf)
 
     mapOutputTrackerMaster = SparkEnv.get.mapOutputTracker.asInstanceOf[MapOutputTrackerMaster]
-    mapOutputTrackerMaster.registerShuffle(appShuffleId.getShuffleId, numMaps)
+    mapOutputTrackerMaster.registerShuffle(appShuffleId.getShuffleId, numMaps, numReduces)
 
     val rdd = sparkContext.parallelize(1 to 100, numMaps)
       .map(t => (t.toString -> t.toString))

@@ -173,7 +173,7 @@ class RssShuffleManagerTest {
     val shuffleHandle = driverShuffleManager.registerShuffle(shuffleId, shuffleDependency)
 
     val mapOutputTrackerMaster = SparkEnv.get.mapOutputTracker.asInstanceOf[MapOutputTrackerMaster]
-    mapOutputTrackerMaster.registerShuffle(shuffleId, numMaps)
+    mapOutputTrackerMaster.registerShuffle(shuffleId, numMaps, numPartitions)
 
     // Spark creates different ShuffleManager instances in driver and executor, thus we create
     // another instance to simulate the situation inside executor
@@ -239,7 +239,7 @@ class RssShuffleManagerTest {
     val shuffleHandle = driverShuffleManager.registerShuffle(shuffleId, shuffleDependency)
 
     val mapOutputTrackerMaster = SparkEnv.get.mapOutputTracker.asInstanceOf[MapOutputTrackerMaster]
-    mapOutputTrackerMaster.registerShuffle(shuffleId, numMaps)
+    mapOutputTrackerMaster.registerShuffle(shuffleId, numMaps, numPartitions)
 
     // Spark creates different ShuffleManager instances in driver and executor, thus we create
     // another instance to simulate the situation inside executor

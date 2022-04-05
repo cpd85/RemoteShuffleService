@@ -15,9 +15,18 @@
 package org.apache.spark.shuffle
 
 import org.apache.spark.network.buffer.ManagedBuffer
-import org.apache.spark.storage.{BlockId, ShuffleBlockId}
+import org.apache.spark.network.shuffle.MergedBlockMeta
+import org.apache.spark.storage.{BlockId, ShuffleBlockId, ShuffleMergedBlockId}
 
 class RssShuffleBlockResolver extends ShuffleBlockResolver {
+
+  override def getMergedBlockData(blockId: ShuffleMergedBlockId, dirs: Option[Array[String]]): Seq[ManagedBuffer] = {
+      Seq()
+    }
+
+  override def getMergedBlockMeta(blockId: ShuffleMergedBlockId, dirs: Option[Array[String]]): MergedBlockMeta = {
+    throw new UnsupportedOperationException("getMergedBlockMeta not supported")
+  }
   override def getBlockData(blockId: BlockId, dirs: Option[Array[String]]): ManagedBuffer = {
     throw new RuntimeException("RssShuffleBlockResolver.getBlockData not implemented")
   }
